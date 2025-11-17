@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Sales Dashboard</h2>
+
+    <div class="row text-center">
+        <div class="col-md-3">
+            <div class="card p-3 shadow-sm">
+                <h4>Total Stores</h4>
+                <p class="fw-bold">{{ total_stores }}</p>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card p-3 shadow-sm">
+                <h4>Total Sales</h4>
+                <p class="fw-bold">₹{{ total_sales }}</p>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card p-3 shadow-sm">
+                <h4>Total Expenses</h4>
+                <p class="fw-bold">₹{{ total_expenses }}</p>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card p-3 shadow-sm">
+                <h4>Total Profit</h4>
+                <p class="fw-bold">₹{{ total_profit }}</p>
+            </div>
+        </div>
+    </div>
+
+    <h3 class="mt-5">Store Performance</h3>
+
+    <table class="table table-bordered mt-3">
+        <thead class="table-dark">
+            <tr>
+                <th>Store Name</th>
+                <th>Total Sales</th>
+                <th>Total Expenses</th>
+                <th>Total Profit</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for s in store_stats %}
+            <tr>
+                <td>{{ s.store__store_name }}</td>
+                <td>₹{{ s.store_sales }}</td>
+                <td>₹{{ s.store_expenses }}</td>
+                <td>₹{{ s.store_profit }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+
+{% endblock %}

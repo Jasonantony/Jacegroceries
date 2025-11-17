@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %}Pay via QR{% endblock %}
+
+{% block content %}
+<div class="payment-wrapper text-center mt-5">
+    <h3>Scan QR to pay ₹{{ cart_total }}</h3>
+    <img src="{{ qr_url }}" alt="QR Code" class="qr-code img-fluid my-4">
+
+    <!-- Hidden button, appears after 40 seconds -->
+    <a id="verifyPaymentBtn" href="{% url 'manual_verify_payment' cart_total %}" class="btn btn-success mt-3"
+        style="display:none;">
+        Verify Payment
+    </a>
+
+    <script>
+        // Show the "Verify Payment" button after 40 seconds
+        setTimeout(() => {
+            document.getElementById('verifyPaymentBtn').style.display = 'inline-block';
+        }, 40000);
+    </script>
+</div>
+{% endblock %}

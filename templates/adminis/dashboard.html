@@ -1,0 +1,154 @@
+{% extends 'base.html' %}
+{% block title %}Admin Dashboard{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+
+    <h2 class="mb-4">Admin Dashboard</h2>
+
+    <!-- Quick Stats -->
+    <div class="row mb-4">
+        <div class="col-md-3">
+            <div class="card text-white bg-primary mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Stores</h5>
+                    <p class="card-text">{{ stores.count }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-white bg-success mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Landlords</h5>
+                    <p class="card-text">{{ landlords.count }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-white bg-warning mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Vendors</h5>
+                    <p class="card-text">{{ vendors.count }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-white bg-danger mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Hiring Requests</h5>
+                    <p class="card-text">{{ hires.count }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Store Table -->
+    <h4>Stores</h4>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Location</th>
+                <th>Established</th>
+                <th>Landlord</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for store in stores %}
+            <tr>
+                <td>{{ store.store_name }}</td>
+                <td>{{ store.location }}</td>
+                <td>{{ store.established_date }}</td>
+                <td>{{ store.landlord.name }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4">No stores added yet</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Vendors Table -->
+    <h4 class="mt-4">Vendors</h4>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Category</th>
+                <th>Registered At</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for vendor in vendors %}
+            <tr>
+                <td>{{ vendor.vendor_name }}</td>
+                <td>{{ vendor.contact_email }}</td>
+                <td>{{ vendor.category }}</td>
+                <td>{{ vendor.registered_at }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4">No vendors registered yet</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Hiring Requests -->
+    <h4 class="mt-4">Hiring Requests</h4>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Applicant</th>
+                <th>Position</th>
+                <th>Resume</th>
+                <th>Applied At</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for hire in hires %}
+            <tr>
+                <td>{{ hire.applicant_name }}</td>
+                <td>{{ hire.position_applied }}</td>
+                <td><a href="{{ hire.resume.url }}">Download</a></td>
+                <td>{{ hire.applied_at }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4">No hiring requests</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Terminations -->
+    <h4 class="mt-4">Terminations</h4>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Employee</th>
+                <th>Position</th>
+                <th>Terminated At</th>
+                <th>Reason</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for fire in terminations %}
+            <tr>
+                <td>{{ fire.employee_name }}</td>
+                <td>{{ fire.position }}</td>
+                <td>{{ fire.terminated_at }}</td>
+                <td>{{ fire.reason }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4">No terminations</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+{% endblock %}

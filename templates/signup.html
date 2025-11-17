@@ -1,0 +1,173 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+<style>
+    /* PAGE-SPECIFIC STYLES ONLY — WILL NOT AFFECT OTHER PAGES */
+    .signup-page-wrapper {
+        width: 100%;
+        min-height: 100vh;
+        background: #f2f6ff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 40px 15px;
+        font-family: "Poppins", sans-serif;
+    }
+
+    .signup-box {
+        width: 900px;
+        background: white;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.15);
+        display: flex;
+        animation: fadeIn 0.7s ease;
+    }
+
+    /* LEFT IMAGE */
+    .signup-left {
+        width: 50%;
+        background: url('{% static "images/signup_food.jpg" %}') center/cover no-repeat;
+        position: relative;
+    }
+
+    .signup-left::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: rgba(0, 114, 255, 0.35);
+    }
+
+    /* RIGHT FORM */
+    .signup-right {
+        width: 50%;
+        padding: 40px;
+    }
+
+    .signup-right h2 {
+        text-align: center;
+        font-size: 28px;
+        color: #0072ff;
+        margin-bottom: 20px;
+        font-weight: 600;
+    }
+
+    .signup-input {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #cdd5e0;
+        border-radius: 10px;
+        outline: none;
+        font-size: 15px;
+        margin-top: 15px;
+        transition: 0.2s;
+        background: #f9fbff;
+    }
+
+    .signup-input:focus {
+        box-shadow: 0 0 8px rgba(0, 114, 255, 0.3);
+        border-color: #0072ff;
+    }
+
+    .signup-btn {
+        width: 100%;
+        padding: 13px;
+        border: none;
+        background: #0072ff;
+        color: white;
+        border-radius: 10px;
+        margin-top: 20px;
+        cursor: pointer;
+        font-size: 16px;
+        transition: 0.3s;
+    }
+
+    .signup-btn:hover {
+        background: #005acc;
+    }
+
+    .signup-right p {
+        text-align: center;
+        margin-top: 15px;
+        font-size: 14px;
+    }
+
+    .signup-right a {
+        color: #0072ff;
+        font-weight: 600;
+        text-decoration: none;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* MOBILE RESPONSIVE */
+    @media (max-width: 850px) {
+        .signup-box {
+            flex-direction: column;
+            width: 95%;
+        }
+
+        .signup-left {
+            width: 100%;
+            height: 250px;
+        }
+
+        .signup-right {
+            width: 100%;
+        }
+    }
+</style>
+{% endblock %}
+
+
+{% block content %}
+
+<div class="signup-page-wrapper">
+    <div class="signup-box">
+
+        <!-- LEFT IMAGE -->
+        <div class="signup-left"></div>
+
+        <!-- RIGHT FORM -->
+        <div class="signup-right">
+            <h2>Create Your Account</h2>
+
+            <form method="POST">
+                {% csrf_token %}
+
+                <input type="text" class="signup-input" name="username" placeholder="Enter Username" required>
+
+                <input type="email" class="signup-input" name="email" placeholder="Enter Email" required>
+
+                <input type="password" class="signup-input" name="password" placeholder="Create Password" required>
+                <select name="role">
+                    <option state="default" value="Customer">Customer</option>
+                    <option value="admin">Admin</option>
+                    <option value="vendor">Vendor</option>
+                    <option value="store">Store</option>
+                </select>
+
+                <button type="submit" class="signup-btn">Signup</button>
+
+                <p>
+                    Already have an account?
+                    <a href="{% url 'login' %}">Login Here</a>
+                </p>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div style="padding: 40px; font-family: Poppins;">
+
+    <h2>Welcome, {{ user.first_name|default:user.username }} 👋</h2>
+    <p style="color: #555;">Here is your monthly summary:</p>
+
+    <hr><br>
+
+    <!-- Purchase History -->
+    <h3>Your Purchase History</h3>
+
+    {% if history %}
+    <ul style="list-style:none;padding:0;">
+        {% for p in history %}
+        <li style="background:#f5f7ff;margin:10px 0;padding:10px;border-radius:10px;">
+            <strong>{{ p.item_name }}</strong> — Qty: {{ p.quantity }}
+            <br>
+            <small>Date: {{ p.date }}</small>
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p>You have no purchase history yet.</p>
+    {% endif %}
+
+    <br>
+    <hr><br>
+
+    <!-- Suggested Items -->
+    <h3>Suggested Items to Purchase This Month</h3>
+
+    {% if suggestions %}
+    <ul>
+        {% for item in suggestions %}
+        <li>{{ item }}</li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p>No suggestions yet — Start shopping!</p>
+    {% endif %}
+
+</div>
+
+{% endblock %}

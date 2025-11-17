@@ -1,0 +1,131 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<style>
+    body {
+        font-family: 'Poppins', sans-serif;
+    }
+
+    .shop-container {
+        width: 90%;
+        margin: 40px auto;
+    }
+
+    .shop-title {
+        text-align: center;
+        font-size: 32px;
+        font-weight: 700;
+        color: #ff6600;
+        margin-bottom: 20px;
+    }
+
+    /* PRODUCT GRID */
+    .product-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 25px;
+    }
+
+    .product-card {
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+        overflow: hidden;
+        transition: transform 0.3s ease;
+    }
+
+    .product-card:hover {
+        transform: translateY(-6px);
+    }
+
+    .product-card img {
+        width: 100%;
+        height: 220px;
+        object-fit: cover;
+    }
+
+    .product-info {
+        padding: 15px;
+    }
+
+    .product-info h3 {
+        font-size: 18px;
+        font-weight: 600;
+        margin-bottom: 5px;
+    }
+
+    .product-info p {
+        color: #777;
+        font-size: 14px;
+    }
+
+    .price {
+        margin-top: 10px;
+        font-size: 20px;
+        font-weight: 700;
+        color: #ff6600;
+    }
+
+    .add-btn {
+        margin-top: 12px;
+        width: 100%;
+        padding: 10px;
+        background: #ff6600;
+        color: white;
+        text-align: center;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 15px;
+        font-weight: 600;
+        transition: 0.2s;
+    }
+
+    .add-btn:hover {
+        background: #e25600;
+    }
+
+    /* CART BADGE (NAVBAR) */
+    .cart-badge {
+        background: red;
+        color: white;
+        font-size: 12px;
+        padding: 2px 6px;
+        border-radius: 50%;
+        margin-left: 5px;
+    }
+</style>
+
+<div class="shop-container">
+
+    <h1 class="shop-title">Shop Products</h1>
+
+    <!-- GRID -->
+    <div class="product-grid">
+
+        {% for product in products %}
+        <div class="product-card">
+
+            <img src="{{ product.image.url }}" alt="">
+
+            <div class="product-info">
+                <h3>{{ product.name }}</h3>
+                <p>{{ product.description|truncatewords:10 }}</p>
+
+                <div class="price">₹{{ product.price }}</div>
+
+                <form action="{% url 'add_to_cart' product.id %}" method="POST">
+                    {% csrf_token %}
+                    <button class="add-btn">Add to Cart</button>
+                </form>
+            </div>
+
+        </div>
+        {% endfor %}
+
+    </div>
+</div>
+
+{% endblock %}
